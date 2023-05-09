@@ -12,6 +12,13 @@ userRoutes.get("/", async (req, res) => {
     } catch (e) { res.status(400).send({ msg: e.message })}
 })
 
+userRoutes.get("/:userId", async (req, res) => {
+    try {
+        const data = await userModel.find({_id:req.params.userId});
+        res.status(200).send({data, status: "success" });
+    } catch (e) { res.status(400).send({ msg: e.message })}
+})
+
 userRoutes.post("/register", async (req, res) => {
     const {name,email,password,wallet,city,role } = req.body;
     try {
