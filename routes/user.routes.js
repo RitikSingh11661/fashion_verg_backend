@@ -34,7 +34,7 @@ userRoutes.post("/register", async (req, res) => {
     } catch (e) {res.status(400).send({ msg: e.message })}
 })
 
-userRoutes.post("/login", async (req, res) => {
+userRoutes.post("/login", async(req, res)=>{
     const {email,password}=req.body;
     try {
         if (email && password) {
