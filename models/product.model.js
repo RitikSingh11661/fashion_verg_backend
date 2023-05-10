@@ -4,10 +4,11 @@ const schema = mongoose.Schema({
     name:String,
     images: Object,
     brand: String,
-    originalPrice:Number,
-    discountPrice:Number,
+    oprice:Number,
+    price:Number,
     category: String,
-    subhead:String
+    subhead:String,
+    discount:String,
 })
 
 const prodModel = mongoose.model("product", schema);

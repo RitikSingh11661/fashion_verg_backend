@@ -50,9 +50,9 @@ prodRoutes.get("/:id", async (req, res) => {
 // Below's for admin only
 prodRoutes.use(verifyToken);
 prodRoutes.post("/add", async (req, res) => {
-    const { name, images, brand, originalPrice, discountPrice, category} = req.body;
+    const {name,images,brand,oprice,price,category,discount}=req.body;
     try {
-        if (name && images && brand && originalPrice && discountPrice && category) {
+        if (name && images && brand && oprice && price && category && discount) {
             const newProduct = new prodModel(req.body);
             await newProduct.save();
             res.status(200).send({ msg: "Product has been added", status: "success", data:newProduct});
