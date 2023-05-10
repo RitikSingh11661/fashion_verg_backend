@@ -20,7 +20,7 @@ userRoutes.get("/:userId", async (req, res) => {
 })
 
 userRoutes.post("/register", async (req, res) => {
-    const {name,email,password,wallet,city,role } = req.body;
+    const {name,email,password,wallet,city,role} = req.body;
     try {
         if (name && email && password && city && role && wallet) {
             const preCheck = await userModel.findOne({ email });
@@ -41,7 +41,7 @@ userRoutes.post("/login", async (req, res) => {
             const preCheck = await userModel.findOne({ email });
             if (preCheck) {
                 const hashCheck = await bcrypt.compare(password, preCheck.password);
-                const token = jwt.sign({ "userId": preCheck._id },'Fashion', { expiresIn: "2h" });
+                const token = jwt.sign({ "userId": preCheck._id,role:preCheck.role},'Fashion', { expiresIn: "2h" });
                 if (hashCheck)res.status(200).send({ msg: "User logged in", status: "success", token });
                 else res.status(400).send({ msg: "Invalid password" });
             } else res.status(400).send({ msg: "User not found" });
