@@ -50,18 +50,14 @@ prodRoutes.get("/:id", async (req, res) => {
 // Below's for admin only
 prodRoutes.use(verifyToken);
 prodRoutes.post("/add", async (req, res) => {
-    const { name, images, brand, originalPrice, discountPrice, category } = req.body;
+    const { name, images, brand, originalPrice, discountPrice, category} = req.body;
     try {
         if (name && images && brand && originalPrice && discountPrice && category) {
             const newProduct = new prodModel(req.body);
             await newProduct.save();
             res.status(200).send({ msg: "Product has been added", status: "success", data:newProduct});
-        } else {
-            res.status(400).send({ msg: "Invalid data format" })
-        }
-    } catch (e) {
-        res.status(400).send({ msg: e.message });
-    }
+        } else res.status(400).send({ msg: "Invalid data format" })
+    } catch (e) {res.status(400).send({ msg: e.message })}
 })
 
 prodRoutes.delete("/delete/:id", async (req, res) => {

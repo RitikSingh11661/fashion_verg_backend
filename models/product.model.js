@@ -6,7 +6,8 @@ const schema = mongoose.Schema({
     brand: String,
     originalPrice:Number,
     discountPrice:Number,
-    category: String
+    category: String,
+    subhead:String
 })
 
 const prodModel = mongoose.model("product", schema);
