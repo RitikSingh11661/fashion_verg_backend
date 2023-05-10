@@ -31,11 +31,18 @@ adminRoutes.get("/", async (req, res) => {
     } catch (e) {res.status(400).send({ msg: e.message })}
 })
 
-adminRoutes.post("/add", async (req, res) => {
-    const { email } = req.body;
+adminRoutes.get("/:adminId", async (req, res) => {
     try {
-        if (req.body.name && req.body.email && req.body.password && req.body.contact && req.body.role && req.body.image) {
-            const preCheck = await adminModel.findOne({ email });
+        const data = await adminModel.find({_id:req.params.adminId});
+        res.status(200).send({data, status: "success" });
+    } catch (e) { res.status(400).send({ msg: e.message })}
+})
+
+adminRoutes.post("/add", async (req, res) => {
+    const {email,name,password,contact,role,image} = req.body;
+    try {
+        if (name && email && password && contact && role && image) {
+            const preCheck = await adminModel.findOne({email});
             if (!preCheck) {
                 const hashedPassword = await bcrypt.hash(req.body.password, 7);
                 const newAdmin = new adminModel({ ...req.body, password: hashedPassword });
