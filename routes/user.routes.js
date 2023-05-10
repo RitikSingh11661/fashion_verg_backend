@@ -42,7 +42,7 @@ userRoutes.post("/login", async (req, res) => {
             if (preCheck) {
                 const hashCheck = await bcrypt.compare(password, preCheck.password);
                 const token = jwt.sign({ "userId": preCheck._id,role:preCheck.role},'Fashion', { expiresIn: "2h" });
-                if (hashCheck)res.status(200).send({ msg: "User logged in", status: "success", token });
+                if (hashCheck)res.status(200).send({msg:"User logged in",status:"success",token,role:preCheck.role});
                 else res.status(400).send({ msg: "Invalid password" });
             } else res.status(400).send({ msg: "User not found" });
         } else res.status(400).send({ msg: "Invalid data format" });
