@@ -11,11 +11,11 @@ cartRoutes.get("/", async (req, res) => {
 })
 
 cartRoutes.post("/add", async (req, res) => {
-    const { prodId, userId } = req.body;
+    const {prodId,userId,status,name,image,oprice,price,discount,description,category,quantity,subhead}=req.body;
     try {
         const preCheck = await cartModel.findOne({ prodId, userId });
-        if (!preCheck) {
-            if (req.body.prodId, req.body.userId && req.body.name && req.body.image && req.body.brand && req.body.originalPrice && req.body.discountPrice && req.body.category) {
+        if(!preCheck){
+            if (prodId && userId && status && name && image && category && oprice && price && discount && description && quantity && subhead){
                 const newData = new cartModel(req.body);
                 await newData.save();
                 res.status(200).send({ msg: "Product has been added to cart", status: "success" });
