@@ -24,7 +24,7 @@ cartRoutes.post("/add", async (req, res) => {
 })
 
 cartRoutes.delete("/delete/:id", async (req, res) => {
-    try {
+    try{
         await cartModel.findByIdAndDelete(req.params.id);
         res.status(200).send({ msg: "Cart item has been deleted", status: "success" });
     } catch (e) {res.status(400).send({ msg: e.message })}

@@ -19,9 +19,9 @@ app.get("/",(req,res)=>{res.send("Homepage")})
 app.use("/admins", adminRoutes);
 app.use("/users", userRoutes);
 app.use("/products", prodRoutes);
-app.use("/address", shippingRouter);
 app.use(verifyToken);
 app.use("/cart", cartRoutes);
+app.use("/address", shippingRouter);
 app.use("/order", orderRoutes);
 app.use("/wishlist", wishlistRoutes);
 

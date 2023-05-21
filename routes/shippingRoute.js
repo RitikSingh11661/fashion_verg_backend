@@ -7,11 +7,13 @@ const shippingRouter = express.Router();
 // <--------------------postrequest-------------------------->
 
 shippingRouter.post("/add", async (req, res) => {
+  const {userId,country,firstName,lastName,address,city,pincode,phone,declaration}=req.body;
   try {
-    shippingAddress;
-    const user = new shippingAddress(req.body);
-    await user.save();
-    res.status(200).send({ msg: "product added" });
+    if(userId && country && firstName && lastName && address && city && pincode && phone && declaration){
+      const user = new shippingAddress(req.body);
+      await user.save();
+      res.status(200).send({ msg: "address added", status: "success"});
+    }else res.status(400).send({msg:"Invalid data format"})
   } catch (error) {res.status(400).send({ msg: error.msg })}
 });
 
@@ -19,8 +21,8 @@ shippingRouter.post("/add", async (req, res) => {
 
 shippingRouter.get("/", async (req, res) => {
   try {
-    const users = await shippingAddress.find();
-    res.status(200).send(users);
+    const addresses = await shippingAddress.find({userId:req.body.userId});
+    res.status(200).send({data:addresses,status:"success"});
   } catch (error) {
     res.status(400).send({ msg: "error.msg " });
   }
@@ -28,11 +30,11 @@ shippingRouter.get("/", async (req, res) => {
 
 // <--------------------updaterequest-------------------------->
 
-shippingRouter.patch("/update/:userID", async (req, res) => {
-  const { userID } = req.params;
+shippingRouter.patch("/update/:addressId", async (req, res) => {
+  const { addressId } = req.params;
   try {
-    await shippingAddress.findByIdAndUpdate({ _id: userID },req.body);
-    res.status(200).send({ msg: "product details updated" });
+    await shippingAddress.findByIdAndUpdate({ _id: addressId },req.body);
+    res.status(200).send({ msg:"address details updated"});
   } catch (error) {
     res.status(400).send({ msg: error.msg });
   }
@@ -40,11 +42,11 @@ shippingRouter.patch("/update/:userID", async (req, res) => {
 
 // <--------------------deleterequest-------------------------->
 
-shippingRouter.delete("/delete/:userID", async (req, res) => {
-  const { userID } = req.params;
+shippingRouter.delete("/delete/:addressId", async (req, res) => {
+  const { addressId } = req.params;
   try {
-    await shippingAddress.findByIdAndDelete({ _id: userID });
-    res.status(200).send({ msg: " product details deleted" });
+    await shippingAddress.findByIdAndDelete({ _id: addressId });
+    res.status(200).send({ msg: " address details deleted" });
   } catch (error) {
     res.status(400).send({ msg: error.msg });
   }

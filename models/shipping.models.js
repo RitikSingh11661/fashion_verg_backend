@@ -2,13 +2,18 @@ const mongoose = require("mongoose");
 
 const shippingSchema = mongoose.Schema(
   {
-    firstname: String,
-    lastname: String,
-    address1: String,
-    zipcode: Number,
+    userId: String,
+    country: String,
+    firstName: String,
+    lastName: String,
+    address: String,
     city: String,
-    phone: Number,
-  },{versionKey: false}
+    company: String,
+    pincode: String,
+    phone: String,
+    declaration: Boolean,
+  }
+  ,{versionKey: false}
 );
 
 const shippingAddress = mongoose.model("Address", shippingSchema);
