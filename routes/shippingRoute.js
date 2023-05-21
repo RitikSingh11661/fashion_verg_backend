@@ -7,9 +7,10 @@ const shippingRouter = express.Router();
 // <--------------------postrequest-------------------------->
 
 shippingRouter.post("/add", async (req, res) => {
-  const {userId,country,firstName,lastName,address,city,pincode,phone,declaration}=req.body;
+  const {userId,country,firstName,lastName,address,city,pincode,phone}=req.body;
+  console.log('req.body',req.body)
   try {
-    if(userId && country && firstName && lastName && address && city && pincode && phone && declaration){
+    if(userId && country && firstName && lastName && address && city && pincode && phone){
       const user = new shippingAddress(req.body);
       await user.save();
       res.status(200).send({ msg: "address added", status: "success"});
