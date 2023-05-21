@@ -5,8 +5,7 @@ const cartRoutes = express.Router();
 cartRoutes.get("/", async (req, res) => {
     try {
         const data = await cartModel.find({ userId: req.body.userId });
-        console.log(data)
-        res.status(200).send({ msg: data, status: "success" });
+        res.status(200).send({data,status: "success"});
     } catch (e) {res.status(400).send({ msg: e.message })}
 })
 
