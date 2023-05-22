@@ -1,5 +1,5 @@
 const { orderModel } = require("../models/order.model");
-const { v4: uuidv4 } = require('uuid');
+// const {v4} = require('uuid')
 const { ObjectId } = require('mongodb');
 
 const express = require("express");
@@ -24,18 +24,16 @@ orderRoutes.get("/allorders", async (req, res) => {
     }
 })
 
-orderRoutes.post("/add", async (req, res) => {
-    const timestamp = Math.floor(Date.now() / 1000);
-    const customId = ObjectId.createFromTime(timestamp);
-    
+// const custumId = `${v4()}`;
+// console.log('custumId',custumId)
+orderRoutes.post("/add", async (req, res) => {  
     try {
         if (req.body.userId && req.body.status && req.body.addressId) {
-            const newData = new orderModel({...req.body,_id:customId,createdAt:Date()});
+            const timestamp = Math.floor(Date.now()/1000);
+            const newData = new orderModel({...req.body,_id:ObjectId.createFromTime(timestamp),createdAt:Date()});
             await newData.save();
             res.status(200).send({ msg: "Order has been placed", status: "success" });
-        } else {
-            res.status(400).send({ msg: "Invalid format" });
-        }
+        } else res.status(400).send({ msg: "Invalid format" });
     } catch (e) {
         res.status(400).send({ msg: e.message });
     }
