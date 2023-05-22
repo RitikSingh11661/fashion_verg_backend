@@ -24,7 +24,6 @@ app.use("/cart", cartRoutes);
 app.use("/address", shippingRouter);
 app.use("/order", orderRoutes);
 app.use("/wishlist", wishlistRoutes);
-
 app.listen(process.env.port, async () => {
     try {
         await connection;

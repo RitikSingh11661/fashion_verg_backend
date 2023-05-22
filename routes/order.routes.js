@@ -26,7 +26,7 @@ orderRoutes.get("/allorders", async (req, res) => {
 orderRoutes.post("/add", async (req, res) => {
     try {
         if (req.body.userId && req.body.status && req.body.addressId) {
-            const custumId = `ObjectId("${new ObjectId().toHexString()}")`;
+            const custumId = `${new ObjectId().toHexString()}${Date.now()}`;
             const newData = new orderModel({ ...req.body, _id: custumId, createdAt: Date() });
             await newData.save();
             res.status(200).send({ msg: "Order has been placed", status: "success" });
