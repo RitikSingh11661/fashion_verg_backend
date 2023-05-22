@@ -24,7 +24,7 @@ orderRoutes.get("/allorders", async (req, res) => {
 
 orderRoutes.post("/add", async (req, res) => {
     try {
-        if (req.body.userId && req.body.status && req.body.name && req.body.image && req.body.brand && req.body.originalPrice && req.body.discountPrice && req.body.category) {
+        if (req.body.userId && req.body.status && req.body.addressId) {
             const newData = new orderModel(req.body);
             await newData.save();
             res.status(200).send({ msg: "Order has been added", status: "success" });
