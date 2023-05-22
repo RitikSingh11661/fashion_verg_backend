@@ -31,7 +31,7 @@ prodRoutes.get("/", async (req, res) => {
             skip = (+query.page - 1) * limit;
         }
         const data = await prodModel.find(queryToSend).limit(limit).skip(skip * limit).sort(sortQuery);
-        res.status(200).send({ msg: data, status: "success" });
+        res.status(200).send({data, status: "success" });
     } catch (e) {
         res.status(400).send({ msg: e.message })
     }
