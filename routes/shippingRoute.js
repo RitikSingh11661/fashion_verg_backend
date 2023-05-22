@@ -11,9 +11,9 @@ shippingRouter.post("/add", async (req, res) => {
   console.log('req.body',req.body)
   try {
     if(userId && country && firstName && lastName && address && city && pincode && phone){
-      const user = new shippingAddress(req.body);
-      await user.save();
-      res.status(200).send({ msg: "address added", status: "success"});
+      const address = new shippingAddress(req.body);
+      await address.save();
+      res.status(200).send({ msg: "address added", data:address, status: "success"});
     }else res.status(400).send({msg:"Invalid data format"})
   } catch (error) {res.status(400).send({ msg: error.msg })}
 });
