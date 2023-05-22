@@ -1,7 +1,5 @@
 const express = require("express");
 const cors = require("cors");
-// const {v4} = require('uuid');
-// const { ObjectId } = require('mongodb');
 const { adminRoutes } = require("./routes/admin.routes");
 const { cartRoutes } = require("./routes/cart.routes");
 const { orderRoutes } = require("./routes/order.routes");
@@ -27,12 +25,6 @@ app.use("/address", shippingRouter);
 app.use("/order", orderRoutes);
 app.use("/wishlist", wishlistRoutes);
 
-// const custumId = `${v4()}`;
-// console.log('custumId',custumId)
-
-// const timestamp = Math.floor(Date.now()/1000);
-// const temptId = ObjectId.createFromTime(timestamp);
-// console.log('temptId',temptId)
 app.listen(process.env.port, async () => {
     try {
         await connection;
