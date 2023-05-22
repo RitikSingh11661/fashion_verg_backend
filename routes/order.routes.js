@@ -7,7 +7,7 @@ const orderRoutes = express.Router();
 orderRoutes.get("/", async (req, res) => {
     try {
         const data = await orderModel.find({ userId: req.body.userId });
-        res.status(200).send({ msg: data, status: "success" })
+        res.status(200).send({ data, status: "success" })
     } catch (e) {
         res.status(400).send({ msg: e.message });
     }
@@ -27,7 +27,7 @@ orderRoutes.post("/add", async (req, res) => {
         if (req.body.userId && req.body.status && req.body.addressId) {
             const newData = new orderModel(req.body);
             await newData.save();
-            res.status(200).send({ msg: "Order has been added", status: "success" });
+            res.status(200).send({ msg: "Order has been placed", status: "success" });
         } else {
             res.status(400).send({ msg: "Invalid format" });
         }
