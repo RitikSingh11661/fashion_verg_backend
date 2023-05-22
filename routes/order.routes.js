@@ -17,17 +17,17 @@ orderRoutes.get("/", async (req, res) => {
 orderRoutes.get("/allorders", async (req, res) => {
     try {
         const data = await orderModel.find();
-        res.status(200).send({data,status:"success"})
+        res.status(200).send({ data, status: "success" })
     } catch (e) {
         res.status(400).send({ msg: e.message });
     }
 })
 
-orderRoutes.post("/add", async (req, res) => {  
+orderRoutes.post("/add", async (req, res) => {
     try {
         if (req.body.userId && req.body.status && req.body.addressId) {
-            const custumId = `ObjectId('${new ObjectId}${Date.now()}}')`;
-            const newData = new orderModel({...req.body,_id:custumId,createdAt:Date()});
+            const custumId = `ObjectId("${new ObjectId().toHexString()}")`;
+            const newData = new orderModel({ ...req.body, _id: custumId, createdAt: Date() });
             await newData.save();
             res.status(200).send({ msg: "Order has been placed", status: "success" });
         } else res.status(400).send({ msg: "Invalid format" });
