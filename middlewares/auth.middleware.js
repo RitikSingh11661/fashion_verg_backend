@@ -4,7 +4,6 @@ const verifyToken = (req, res, next) => {
     const token = req.headers.token;
     if (token) {
         const decoded = jwt.verify(token, "Fashion");
-        console.log('decoded',decoded)
         if (decoded) {
             req.body.userId = decoded.userId;
             if (req.path === '/cart/add') {
