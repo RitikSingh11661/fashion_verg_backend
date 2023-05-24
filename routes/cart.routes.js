@@ -9,6 +9,15 @@ cartRoutes.get("/", async (req, res) => {
     } catch (e) {res.status(400).send({ msg: e.message })}
 })
 
+cartRoutes.get("/allcarts", async (req, res) => {
+    try {
+        const data = await cartModel.find();
+        res.status(200).send({ data, status: "success" })
+    } catch (e) {
+        res.status(400).send({ msg: e.message });
+    }
+})
+
 cartRoutes.post("/add", async (req, res) => {
     const {prodId,userId,status,name,image,oprice,price,discount,description,category,quantity,subhead}=req.body;
     try {
