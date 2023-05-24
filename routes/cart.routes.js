@@ -19,11 +19,11 @@ cartRoutes.get("/allcarts", async (req, res) => {
 })
 
 cartRoutes.post("/add", async (req, res) => {
-    const {prodId,userId,status,name,image,oprice,price,discount,description,category,quantity,subhead}=req.body;
+    const {prodId,userId,status,name,image,oprice,price,discount,description,category,quantity,subhead,userName,userEmail}=req.body;
     try {
         const preCheck = await cartModel.findOne({ prodId, userId });
         if(!preCheck){
-            if (prodId && userId && status && name && image && category && oprice && price && discount && description && quantity && subhead){
+            if (prodId && userId && userName && userEmail && status && name && image && category && oprice && price && discount && description && quantity && subhead){
                 const newData = new cartModel(req.body);
                 await newData.save();
                 res.status(200).send({ msg: "Product has been added to cart", status: "success" });

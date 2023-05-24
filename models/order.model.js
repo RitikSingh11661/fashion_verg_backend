@@ -5,6 +5,8 @@ const schema = mongoose.Schema({
     _id: String,
     createdAt: String,
     userId: String,
+    userEmail: String,
+    userName: String,
     prodId: String,
     addressId: String,
     name: String,
