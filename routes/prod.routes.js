@@ -9,6 +9,12 @@ prodRoutes.get("/", async (req, res) => {
     try {
         let query = req.query, queryToSend = {}, sortQuery = {}, limit = query.limit || 12, skip, sort = query.sort ? query.sort.split(",") : [], orderBy = query.orderBy ? query.orderBy.split(",") : [];
         let toSort, toOrder, n = Math.min(sort.length, orderBy.length);
+        const search = req.query.search;
+
+        if (search) {
+            // Use a regular expression to perform a partial match search
+            queryToSend.name = { $regex: `^${search}`, $options: "i" };
+        }
         for (let i = 0; i < n; i++) {
             if (orderBy[i] === "asc" && sort[i]) {
                 toSort = sort[i];
