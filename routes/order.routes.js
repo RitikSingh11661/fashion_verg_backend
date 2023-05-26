@@ -47,7 +47,7 @@ orderRoutes.delete("/delete/:id", async (req, res) => {
 
 orderRoutes.patch("/update/:id", async (req, res) => {
     try {
-        await orderModel.findByIdAndDelete(req.params.id, req.body);
+        await orderModel.findByIdAndUpdate(req.params.id, req.body);
         res.status(200).send({ msg: "Order details has been updated", status: "success" });
     } catch (e) {
         res.status(400).send({ msg: e.message });
